@@ -5,7 +5,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import analytics from 'analytics.js';
 
-!function () {
+const startAnalytics = () => {
     var analytics = window.analytics = window.analytics || [];
     if (!analytics.initialize) {
         if (analytics.invoked) {
@@ -39,10 +39,33 @@ import analytics from 'analytics.js';
             analytics.page();
         }
     }
-}();
+}
 
-debugger;
+const identify = (e) => {
+    e.preventDefault();
+    var form = e.target;
+    var email = form["email"].value;
+    var fullname = form["fullname"].value;
+    var destination = form["destination"].value;
+    var details = form["details"].value;
+    var user = {
+        email: email, 
+        name: fullname, 
+        destination: destination, 
+        details: details
+    };
+    analytics.identify(12345, {
+        email: email, 
+        name: fullname
+    });
+    analytics.track('destination submitted', user, function() {
+        window.location.href = "";
+    });
+}
 
+
+startAnalytics();
+identify();
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
