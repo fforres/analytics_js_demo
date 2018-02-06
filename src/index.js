@@ -5,7 +5,6 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import analytics from 'analytics.js';
 
-console.log(analytics);
 !function () {
     var analytics = window.analytics = window.analytics || [];
     if (!analytics.initialize) {
